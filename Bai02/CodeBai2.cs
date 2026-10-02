@@ -4,7 +4,9 @@ using System.Linq;
 
 namespace AutoSpeedLogistics
 {
-
+    // ==========================================
+    // 1. ABSTRACT CLASS PHUONGTIEN (LỚP CHA TRỪU TƯỢNG)
+    // ==========================================
     public abstract class PhuongTien
     {
         // Private Fields (Đóng gói)
@@ -13,7 +15,7 @@ namespace AutoSpeedLogistics
         private int _namSanXuat;
         private decimal _giaGoc;
 
-
+        // Encapsulation Properties & Validation
         public string MaPT
         {
             get => _maPT;
@@ -73,8 +75,9 @@ namespace AutoSpeedLogistics
         }
     }
 
-
-
+    // ==========================================
+    // 2. CLASS OTO (KẾ THỪA TỪ PHUONGTIEN)
+    // ==========================================
     public class OTo : PhuongTien
     {
         private int _soChoNgoi;
@@ -124,11 +127,13 @@ namespace AutoSpeedLogistics
         // Override GetInfo()
         public override string GetInfo()
         {
-            return $"{base.GetInfo()} | Loại: Ô tô | Chỗ ngồi: {SoChoNgoi} | Động cơ: {DungTichDongCo}L | Giá lăn bánh: {TinhGiaLanBanh():N0} VNĐ";
+            return $"{base.GetInfo()} | Loại: Ô tô | Chỗ ngồi: {SoChoNgoi} | Động cơ: {DungTichDongCo}L ==> GIÁ LĂN BÁNH: {TinhGiaLanBanh():N0} VNĐ";
         }
     }
 
-
+    // ==========================================
+    // 3. CLASS XEMAY (KẾ THỪA TỪ PHUONGTIEN)
+    // ==========================================
     public class XeMay : PhuongTien
     {
         private int _dungTichXylanh;
@@ -160,7 +165,7 @@ namespace AutoSpeedLogistics
         // Override GetInfo()
         public override string GetInfo()
         {
-            return $"{base.GetInfo()} | Loại: Xe máy | Xilanh: {DungTichXylanh}cc | Giá lăn bánh: {TinhGiaLanBanh():N0} VNĐ";
+            return $"{base.GetInfo()} | Loại: Xe máy | Xilanh: {DungTichXylanh}cc ==> GIÁ LĂN BÁNH: {TinhGiaLanBanh():N0} VNĐ";
         }
     }
 
@@ -185,7 +190,6 @@ namespace AutoSpeedLogistics
                 Console.WriteLine("Danh sách hiện đang trống.");
                 return;
             }
-
             foreach (var pt in _danhSach)
             {
                 Console.WriteLine(pt.GetInfo());
@@ -204,12 +208,14 @@ namespace AutoSpeedLogistics
                 return new List<PhuongTien>();
 
             return _danhSach
-.Where(pt => pt.TenHang.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .Where(pt => pt.TenHang.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
     }
 
-
+    // ==========================================
+    // 5. CHƯƠNG TRÌNH CHÍNH
+    // ==========================================
     internal class Program
     {
         private static void Main(string[] args)
@@ -297,7 +303,9 @@ namespace AutoSpeedLogistics
 
                 OTo oto = new(maPT, tenHang, namSX, giaGoc, soCho, dungTich);
                 ql.AddPhuongTien(oto);
-                Console.WriteLine("-> Thêm ô tô thành công!");
+
+                Console.WriteLine("\n-> THÊM Ô TÔ THÀNH CÔNG!");
+                Console.WriteLine($"-> Thông tin chi tiết: {oto.GetInfo()}");
             }
             catch (FormatException)
             {
@@ -311,7 +319,7 @@ namespace AutoSpeedLogistics
 
         private static void NhapXeMay(QuanLyPhuongTien ql)
         {
-            Console.WriteLine("\n NHẬP THÔNG TIN XE MÁY");
+            Console.WriteLine("\n--- NHẬP THÔNG TIN XE MÁY ---");
             try
             {
                 Console.Write("Mã phương tiện: ");
@@ -331,7 +339,9 @@ namespace AutoSpeedLogistics
 
                 XeMay xeMay = new(maPT, tenHang, namSX, giaGoc, dungTichCc);
                 ql.AddPhuongTien(xeMay);
-                Console.WriteLine("-> Thêm xe máy thành công!");
+
+                Console.WriteLine("\n-> THÊM XE MÁY THÀNH CÔNG!");
+                Console.WriteLine($"-> Thông tin chi tiết: {xeMay.GetInfo()}");
             }
             catch (FormatException)
             {
