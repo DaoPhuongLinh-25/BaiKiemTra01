@@ -1,1 +1,2 @@
-# BaiKiemTra01
+Họ và Tên: Đào Phương Linh
+MSV: 24810310420
