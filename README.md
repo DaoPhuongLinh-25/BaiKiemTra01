@@ -1,2 +1,2 @@
-Họ và Tên: Đào Phương Linh
-MSV: 24810310420
+- Họ và Tên: Đào Phương Linh
+- MSV: 24810310420
